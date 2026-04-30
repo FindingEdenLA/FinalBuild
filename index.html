@@ -1,114 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>Finding Eden</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <link href="./index_files/css2" rel="stylesheet">
-
-  <script type="module" src="./index_files/index-C8aWWcKi.js"></script>
-  <link rel="stylesheet" href="./index_files/index-ox2lH1y1.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Get Involved | Finding Eden</title>
+  <meta name="description" content="Finding Eden Healing Arts Center">
+  <meta property="og:title" content="Get Involved | Finding Eden">
+  <meta property="og:description" content="Finding Eden Healing Arts Center">
+  <meta property="og:image" content="/images/loft-night.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
 </head>
-
 <body>
-  <div id="root"></div>
 
-  <script>
-    (function () {
-      const ROUTE_MAP = {
-        "/": "/",
-        "/about": "/about",
-        "/programs": "/programs",
-        "/start-here": "/start-here",
-        "/tools": "/tools",
-        "/resources": "/resources",
-        "/voices": "/voices",
-        "/event": "/event",
-        "/get-involved": "/get-involved",
-        "/online-journal": "/online-journal",
-        "/air-it-out": "/air-it-out",
-      };
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="/index.html">Finding Eden<small>Healing Arts Center</small></a>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/programs.html">Programs</a>
+      <a href="/vision.html">Vision</a>
+      <a href="/funders.html">Funders</a>
+      <a href="/event.html">Event</a>
+      <a href="/get-involved.html">Get Involved</a>
+      <a href="/volunteer.html">Volunteer</a>
+      <a href="/voices.html">Voices</a>
+      <a href="/online-journal.html">Journal</a>
+      <a href="/air-it-out.html">Air It Out</a>
+      <a class="nav-cta" href="/donate.html">Donate</a>
+    </div>
+  </nav>
+</header>
 
-      function fixLinks(root = document) {
-        root.querySelectorAll("a[href]").forEach((link) => {
-          const href = link.getAttribute("href");
-          if (!href) return;
 
-          // Strip old Replit domain
-          let cleaned = href
-            .replace("https://deploy-ready--privatehealing.replit.app", "")
-            .replace("http://deploy-ready--privatehealing.replit.app", "");
+<main>
+<section class="hero" style="--hero:url('/images/community-circle.jpg')"><div class="hero-inner"><p class="kicker">Get Involved</p><h1>We are building this with people who actually care.</h1><p class="lede">Finding Eden needs organizers, facilitators, volunteers, funders, artists, wellness practitioners, and community builders.</p></div></section>
+<section><div class="container split"><div class="panel"><h2>Ways to help</h2><p>You can help with event planning, facilitator outreach, social media, volunteer coordination, setup, grant research, fundraising, creative programming, or community partnerships.</p><a class="btn" href="mailto:findingedenfoundation@gmail.com?subject=Finding%20Eden%20Get%20Involved">Email Us</a></div><div class="image-frame"><img src="/images/youth-programs.jpg"></div></div></section>
+<section class="band"><div class="container"><h2 class="center">Needed roles</h2><div class="list"><div>Event coordinator / organizer</div><div>Volunteer lead</div><div>Facilitator outreach support</div><div>Marketing + social media support</div><div>Grant and funder research</div><div>Setup, check-in, and hospitality volunteers</div></div></div></section>
+</main>
 
-          // Force App label/link to Air It Out
-          if (link.textContent && link.textContent.trim() === "App") {
-            link.textContent = "Air It Out";
-            cleaned = "/air-it-out";
-          }
-
-          if (ROUTE_MAP[cleaned]) {
-            link.setAttribute("href", ROUTE_MAP[cleaned]);
-          } else if (cleaned.startsWith("/") && !cleaned.startsWith("//")) {
-            link.setAttribute("href", cleaned);
-          }
-        });
-      }
-
-      function fixEmails(root = document.body) {
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-        const nodes = [];
-        while (walker.nextNode()) nodes.push(walker.currentNode);
-
-        nodes.forEach((node) => {
-          if (node.nodeValue && node.nodeValue.includes("contact@findingeden.info")) {
-            node.nodeValue = node.nodeValue.replaceAll(
-              "contact@findingeden.info",
-              "findingedenfoundation@gmail.com"
-            );
-          }
-        });
-
-        root.querySelectorAll('a[href^="mailto:contact@findingeden.info"]').forEach((a) => {
-          a.setAttribute("href", "mailto:findingedenfoundation@gmail.com");
-          if (a.textContent.includes("contact@findingeden.info")) {
-            a.textContent = a.textContent.replaceAll(
-              "contact@findingeden.info",
-              "findingedenfoundation@gmail.com"
-            );
-          }
-        });
-      }
-
-      function removeReplitPill() {
-        document.querySelectorAll('script[src*="replit-pill"], script[src*="replit-badge"]').forEach((el) => el.remove());
-        document.querySelectorAll("#replit-pill-host, #replit-badge").forEach((el) => el.remove());
-      }
-
-      function applyFixes() {
-        fixLinks(document);
-        fixEmails(document.body);
-        removeReplitPill();
-      }
-
-      // Run now and keep watching because the app renders after load
-      applyFixes();
-
-      const observer = new MutationObserver(() => {
-        applyFixes();
-      });
-
-      observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-      });
-
-      window.addEventListener("load", applyFixes);
-      setTimeout(applyFixes, 500);
-      setTimeout(applyFixes, 1500);
-      setTimeout(applyFixes, 3000);
-    })();
-  </script>
+<footer class="footer">
+  <p><strong>Finding Eden</strong> · findingedenfoundation@gmail.com</p>
+  <p><a href="/donate.html">Donate</a> · <a href="/get-involved.html">Get Involved</a> · <a href="/air-it-out.html">Air It Out</a></p>
+</footer>
 </body>
 </html>
